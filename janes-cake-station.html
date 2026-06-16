@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jane's Cake Station — Jalan Kayu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cocoa-950:#241208;
+    --cocoa-900:#2E1810;
+    --cocoa-800:#4A2E1E;
+    --cocoa-700:#6B4530;
+    --cream-100:#F5EBD8;
+    --cream-200:#EADFC6;
+    --durian-gold:#D4A024;
+    --durian-green:#8A9A3B;
+    --stamp-red:#A8362A;
+    --max-w:1140px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cocoa-950);
+    color:var(--cream-100);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--durian-gold);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{content:'';width:18px;height:1px;background:var(--durian-gold);}
+  h1,h2,h3{font-family:'Fraunces', serif;font-weight:700;letter-spacing:-0.01em;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(36,18,8,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(245,235,216,0.08);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--cream-100);}
+  .brand span{color:var(--durian-gold);}
+  .navlinks{display:flex;gap:28px;font-size:14.5px;font-weight:500;}
+  .navlinks a{opacity:0.85;transition:opacity .2s;}
+  .navlinks a:hover{opacity:1;color:var(--durian-gold);}
+  .navlinks{display:none;}
+  @media(min-width:760px){.navlinks{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:72px 0 90px;
+    background:radial-gradient(ellipse 700px 500px at 85% 10%, rgba(212,160,36,0.10), transparent 60%);
+  }
+  .hero .wrap{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+  @media(min-width:880px){.hero .wrap{grid-template-columns:1.05fr 0.95fr;}}
+  .hero h1{font-size:clamp(40px,6vw,64px);line-height:1.02;margin:18px 0 18px;color:var(--cream-100);}
+  .hero h1 em{font-style:normal;color:var(--durian-gold);}
+  .hero p.lede{font-size:17.5px;max-width:480px;color:var(--cream-200);opacity:0.92;margin-bottom:28px;}
+
+  .rating-row{display:flex;align-items:center;gap:12px;margin-bottom:30px;font-size:14.5px;}
+  .stars{position:relative;width:92px;height:16px;font-family:'Space Mono',monospace;letter-spacing:2px;}
+  .stars .base{position:absolute;color:rgba(245,235,216,0.25);}
+  .stars .fill{position:absolute;width:84%;overflow:hidden;color:var(--durian-gold);}
+  .rating-num{font-family:'Space Mono',monospace;color:var(--cream-100);font-weight:700;}
+  .rating-row .muted{opacity:0.65;}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn{
+    font-family:'Work Sans',sans-serif;font-weight:600;font-size:14.5px;
+    padding:14px 24px;border-radius:3px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .btn-primary{background:var(--durian-gold);color:var(--cocoa-950);}
+  .btn-primary:hover{transform:translateY(-2px);background:#e3b237;}
+  .btn-ghost{border:1px solid rgba(245,235,216,0.35);color:var(--cream-100);}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--cream-100);}
+
+  .hero-art{position:relative;display:flex;justify-content:center;}
+  .hero-art svg{width:100%;max-width:380px;}
+  .stamp{
+    position:absolute;
+    top:-14px;right:4%;
+    transform:rotate(-9deg);
+    width:148px;
+    opacity:0;
+    animation:stamp-in .55s 0.4s cubic-bezier(.2,1.4,.4,1) forwards;
+  }
+  @keyframes stamp-in{
+    0%{opacity:0;transform:rotate(-9deg) scale(1.6);}
+    100%{opacity:0.92;transform:rotate(-9deg) scale(1);}
+  }
+  @media(min-width:880px){.stamp{right:-6%;top:18px;}}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:88px 0;}
+  .section-head{max-width:560px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(28px,4vw,40px);margin:14px 0 12px;color:var(--cream-100);}
+  .section-head p{color:var(--cream-200);opacity:0.85;font-size:16px;}
+
+  /* ---------- CAKES ---------- */
+  .cakes-section{background:var(--cocoa-900);border-top:1px solid rgba(245,235,216,0.06);border-bottom:1px solid rgba(245,235,216,0.06);}
+  .cake-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media(min-width:760px){.cake-grid{grid-template-columns:1fr 1fr;}}
+  .cake-card{
+    background:var(--cocoa-800);
+    border:1px solid rgba(245,235,216,0.08);
+    border-radius:6px;
+    padding:36px 32px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .cake-card:hover{transform:translateY(-5px);border-color:rgba(212,160,36,0.4);}
+  .cake-card .icon{width:84px;height:84px;margin-bottom:22px;}
+  .cake-card h3{font-size:25px;color:var(--cream-100);margin-bottom:10px;}
+  .cake-card p{font-size:15px;color:var(--cream-200);opacity:0.88;margin-bottom:22px;}
+  .price-tag{
+    font-family:'Space Mono',monospace;font-size:13.5px;
+    display:inline-block;padding:7px 14px;border:1px dashed rgba(245,235,216,0.4);
+    border-radius:30px;color:var(--durian-gold);
+  }
+  .whole-only-note{margin-top:38px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--cream-200);opacity:0.6;text-align:center;letter-spacing:0.04em;}
+
+  /* ---------- REVIEWS ---------- */
+  .review-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+  @media(min-width:760px){.review-grid{grid-template-columns:repeat(3,1fr);}}
+  .review-card{
+    background:var(--cream-100);
+    color:var(--cocoa-950);
+    padding:28px 26px 24px;
+    border-radius:2px;
+    position:relative;
+    box-shadow:0 14px 30px rgba(0,0,0,0.25);
+  }
+  .review-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:6px;
+    background:repeating-linear-gradient(90deg, transparent 0 6px, var(--cocoa-950) 6px 7px);
+    opacity:0.06;
+  }
+  .review-card .quote{font-size:15.5px;line-height:1.55;margin-bottom:18px;}
+  .review-meta{font-family:'Space Mono',monospace;font-size:12px;opacity:0.6;display:flex;justify-content:space-between;border-top:1px dashed rgba(46,24,16,0.25);padding-top:12px;}
+  .review-stat{
+    background:var(--cocoa-800);border:1px solid rgba(212,160,36,0.35);
+    padding:28px 26px;border-radius:2px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  }
+  .review-stat .big{font-family:'Fraunces',serif;font-size:46px;color:var(--durian-gold);line-height:1;}
+  .review-stat .small{font-family:'Space Mono',monospace;font-size:12.5px;opacity:0.7;margin-top:8px;}
+
+  /* ---------- VISIT ---------- */
+  .visit-section{background:var(--cocoa-900);border-top:1px solid rgba(245,235,216,0.06);}
+  .visit-grid{display:grid;grid-template-columns:1fr;gap:36px;}
+  @media(min-width:880px){.visit-grid{grid-template-columns:0.9fr 1.1fr;}}
+  .info-list{display:flex;flex-direction:column;gap:22px;}
+  .info-item{display:flex;gap:16px;}
+  .info-item .ico{width:38px;height:38px;flex:none;color:var(--durian-gold);}
+  .info-item .label{font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;margin-bottom:3px;}
+  .info-item .value{font-size:16px;color:var(--cream-100);}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .chip{font-family:'Space Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid rgba(245,235,216,0.3);border-radius:30px;opacity:0.85;}
+  .map-frame{border-radius:6px;overflow:hidden;border:1px solid rgba(245,235,216,0.12);min-height:280px;}
+  .map-frame iframe{width:100%;height:100%;min-height:280px;border:0;filter:saturate(0.85) contrast(1.05);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:46px 0 38px;text-align:center;}
+  footer .brand{display:block;margin-bottom:8px;}
+  footer p{font-size:13px;opacity:0.5;font-family:'Space Mono',monospace;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{transition:none;opacity:1;transform:none;}
+    .stamp{animation:none;opacity:0.92;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Jane's <span>Cake</span> Station</div>
+    <div class="navlinks">
+      <a href="#cakes">The Cakes</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit Us</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Jalan Kayu Neighbourhood Bakery</span>
+      <h1>Jane's<br>Cake <em>Station</em></h1>
+      <p class="lede">Whole cakes, made the old-fashioned way. No slices, no seating, no nonsense — just the cake everyone in the neighbourhood keeps coming back for.</p>
+
+      <div class="rating-row">
+        <div class="stars">
+          <div class="base">★★★★★</div>
+          <div class="fill">★★★★★</div>
+        </div>
+        <span class="rating-num">4.2</span>
+        <span class="muted">· 121 Google reviews</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:+6564811322">Call 6481 1322</a>
+        <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Jane%27s%20Cake%20Station%20265%20Jln%20Kayu%20Singapore%20799493" target="_blank" rel="noopener">Get Directions</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg class="stamp" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="80" cy="80" r="74" fill="none" stroke="var(--stamp-red)" stroke-width="3" stroke-dasharray="4 3"/>
+        <circle cx="80" cy="80" r="62" fill="none" stroke="var(--stamp-red)" stroke-width="2"/>
+        <text x="80" y="62" text-anchor="middle" fill="var(--stamp-red)" font-family="Space Mono, monospace" font-size="12" font-weight="700" letter-spacing="1">WHOLE CAKE</text>
+        <text x="80" y="78" text-anchor="middle" fill="var(--stamp-red)" font-family="Space Mono, monospace" font-size="12" font-weight="700" letter-spacing="1">ONLY</text>
+        <line x1="50" y1="88" x2="110" y2="88" stroke="var(--stamp-red)" stroke-width="1.5"/>
+        <text x="80" y="104" text-anchor="middle" fill="var(--stamp-red)" font-family="Space Mono, monospace" font-size="9.5" letter-spacing="0.5">NO SLICES</text>
+        <text x="80" y="118" text-anchor="middle" fill="var(--stamp-red)" font-family="Space Mono, monospace" font-size="9.5" letter-spacing="0.5">CASH ONLY</text>
+      </svg>
+
+      <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="180" cy="320" rx="140" ry="14" fill="#000" opacity="0.25"/>
+        <ellipse cx="180" cy="300" rx="150" ry="18" fill="var(--cocoa-700)"/>
+        <rect x="60" y="190" width="240" height="110" rx="14" fill="var(--cocoa-800)"/>
+        <rect x="60" y="190" width="240" height="34" rx="14" fill="var(--cream-100)"/>
+        <path d="M60 207 Q90 190 120 207 T180 207 T240 207 T300 207 V224 H60 Z" fill="var(--cream-100)"/>
+        <rect x="78" y="120" width="204" height="80" rx="12" fill="var(--cocoa-700)"/>
+        <path d="M78 138 Q108 118 138 138 T198 138 T258 138 T282 138 V160 H78 Z" fill="var(--cream-100)"/>
+        <circle cx="180" cy="96" r="30" fill="var(--durian-gold)"/>
+        <path d="M180 66 q22 6 22 30 q-22 -4 -22 -30 Z" fill="var(--durian-green)"/>
+        <g opacity="0.9">
+          <circle cx="160" cy="92" r="3" fill="var(--cocoa-900)"/>
+          <circle cx="180" cy="86" r="3" fill="var(--cocoa-900)"/>
+          <circle cx="198" cy="94" r="3" fill="var(--cocoa-900)"/>
+          <circle cx="172" cy="104" r="3" fill="var(--cocoa-900)"/>
+          <circle cx="190" cy="106" r="3" fill="var(--cocoa-900)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section cakes-section" id="cakes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Menu</span>
+      <h2>Two cakes. That's the whole menu.</h2>
+      <p>Jane's keeps it simple — a rotation of two icons, baked fresh and sold whole, the way the neighbourhood has known them for years.</p>
+    </div>
+
+    <div class="cake-grid">
+      <div class="cake-card reveal">
+        <svg class="icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="84" rx="38" ry="6" fill="var(--cocoa-950)" opacity="0.3"/>
+          <rect x="14" y="50" width="72" height="30" rx="6" fill="var(--cocoa-700)"/>
+          <path d="M14 58 Q30 46 46 58 T78 58 T86 58 V66 H14 Z" fill="var(--cream-100)"/>
+          <rect x="24" y="30" width="52" height="24" rx="5" fill="var(--cocoa-800)"/>
+          <path d="M24 36 Q36 26 48 36 T72 36 V44 H24 Z" fill="var(--cream-100)"/>
+        </svg>
+        <h3>Chocolate Fudge Cake</h3>
+        <p>Light, soft, and not overly sweet — the fudge cake regulars cross the island for. Two slices in, you'll understand the loyalty.</p>
+        <span class="price-tag">from $42 / whole cake</span>
+      </div>
+
+      <div class="cake-card reveal">
+        <svg class="icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="84" rx="38" ry="6" fill="var(--cocoa-950)" opacity="0.3"/>
+          <rect x="14" y="54" width="72" height="26" rx="6" fill="var(--cream-200)"/>
+          <path d="M14 60 Q30 50 46 60 T78 60 T86 60 V68 H14 Z" fill="var(--cocoa-800)" opacity="0.18"/>
+          <circle cx="50" cy="34" r="20" fill="var(--durian-gold)"/>
+          <path d="M50 14 q14 4 14 20 q-14 -3 -14 -20 Z" fill="var(--durian-green)"/>
+          <g fill="var(--cocoa-900)">
+            <circle cx="38" cy="32" r="2.4"/><circle cx="50" cy="22" r="2.4"/><circle cx="62" cy="32" r="2.4"/>
+            <circle cx="44" cy="42" r="2.4"/><circle cx="56" cy="42" r="2.4"/>
+          </g>
+        </svg>
+        <h3>Durian Cake</h3>
+        <p>Real durian, the way it should be — rich, fragrant, and usually gone the same day it's baked. Call ahead if you're set on getting one.</p>
+        <span class="price-tag">ask in-store for price</span>
+      </div>
+    </div>
+
+    <p class="whole-only-note">Whole cakes only — there's no café seating, so this is strictly a "walk in, walk out with a cake" kind of place.</p>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Word on the Street</span>
+      <h2>What the neighbourhood says</h2>
+      <p>121 Google reviews and counting — here's a sample, lightly trimmed for length.</p>
+    </div>
+
+    <div class="review-grid">
+      <div class="review-card reveal">
+        <p class="quote">"The chocolate cake from Jane's might be the best thing about living around Jalan Kayu. The two guys behind the counter are friendly and refreshingly no-fuss — whole cakes only, no café seating, no frills."</p>
+        <div class="review-meta"><span>Jie Ying</span><span>Local Guide</span></div>
+      </div>
+      <div class="review-card reveal">
+        <p class="quote">"The small chocolate fudge cake is soft and properly fresh. It looks heavy but eats light — I went through two slices without really meaning to."</p>
+        <div class="review-meta"><span>Mun Chong</span><span>Local Guide</span></div>
+      </div>
+      <div class="review-stat reveal">
+        <span class="big">4.2★</span>
+        <span class="small">Average rating across 121 Google reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section visit-section" id="visit">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Visit Us</span>
+      <h2>Pop by Jalan Kayu</h2>
+      <p>Best to call ahead — popular flavours sell out, and this isn't a sit-down kind of bakery.</p>
+    </div>
+
+    <div class="visit-grid">
+      <div class="info-list reveal">
+        <div class="info-item">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          <div><div class="label">Address</div><div class="value">265 Jln Kayu, Singapore 799493</div></div>
+        </div>
+        <div class="info-item">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 3.2 2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.4 8.6a16 16 0 0 0 6 6l1.1-1c.6-.5 1.4-.6 2.1-.4.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+          <div><div class="label">Phone</div><div class="value">+65 6481 1322</div></div>
+        </div>
+        <div class="info-item">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <div><div class="label">Hours</div><div class="value">Open daily, typically until 6pm — call to confirm</div></div>
+        </div>
+        <div class="chips">
+          <span class="chip">Cash only</span>
+          <span class="chip">Takeaway</span>
+          <span class="chip">Whole cakes only</span>
+        </div>
+      </div>
+
+      <div class="map-frame reveal">
+        <iframe src="https://www.google.com/maps?q=265+Jln+Kayu,+Singapore+799493&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">Jane's <span style="color:var(--durian-gold);">Cake</span> Station</span>
+  <p>265 Jln Kayu, Singapore 799493 · Whole cakes only, since the neighbourhood can remember</p>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+    },{threshold:0.15});
+    els.forEach(el=>obs.observe(el));
+  } else {
+    els.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
